@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+* {padding: 0; margin: 0 auto; text-align: center;}
+ul, ol, li {list-style: none;}
+
+.foodlist li img {display: block; width: 300px; height: auto; overflow: hidden;}
