@@ -1,43 +1,47 @@
 import React from 'react';
+import axios from 'axios';
+import Movie from './Movie';
 
-function Food({name, picture}){
-  //console.log(props.favortie)
-  return (
-    <div>
-      <h1>I like {name}</h1> 
-      <img src={picture}></img>
-    </div>
-  )
-}
-
-const foodILike = [
-  {
-    name: "Kimchi",
-    image: "https://newsimg.hankookilbo.com/2020/04/23/202004231500779914_1.jpg"
-  },
-  {
-    name: "Samgyeopsal",
-    image: "https://post-phinf.pstatic.net/MjAyMDAzMDNfMTcg/MDAxNTgzMTkwNjA3ODQ5.kUXPHqGJ2xPDSu_3FiEoFC3kY9QyQ_g9CziCGrFSDuEg.LpCfOTbc5qth9d-GKzGv9jwj2VKhcqmPHp5cp1KJYEsg.JPEG/IM_food02.jpg?type=w1200"
-  },
-  {
-    name: "Kimbap",
-    image: "https://i1.wp.com/seonkyounglongest.com/wp-content/uploads/2019/08/Korean-Eggroll-Kimbap5.jpg?fit=1300%2C867&ssl=1"
-  },
-  {
-    name: "Bibimbap",
-    image: "https://media.eggs.ca/assets/RecipeThumbs/_resampled/FillWyIxMjgwIiwiNzIwIl0/BIBINBAP-OVERHEAD.jpg"
+class App extends React.Component {
+  state = {
+    isLoading: true,
+    movies: []
   }
-]
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello!!!</h1>
-        {foodILike.map(item => (
-            <Food name={item.name} picture={item.image}/>
-          ))}
-    </div>
-  );
+  getMovies = async () => {
+    const {
+      data: {
+        data : { movies }
+      }
+    } = await axios.get(
+      "https://yts-proxy.now.sh/list_movies.json"
+    )
+    // /console.log(movies)
+    this.setState({ movies, isLoading: false })
+  };
+
+  componentDidMount(){
+    this.getMovies();
+  }
+
+  render(){
+    const { isLoading, movies } = this.state;
+    return (
+      <div>
+        {isLoading ? "Loading..." : movies.map(movie => (
+           <Movie
+           key={movie.id}
+           id={movie.id}
+           year={movie.year}
+           title={movie.title}
+           summary={movie.summary}
+           poster={movie.medium_cover_image}
+         />
+        ))}
+      </div>
+    )
+  }
 }
 
 export default App;
+
