@@ -1,15 +1,7 @@
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    text-align: left;
-}
-
-body {
-    background: #eff3f7;
+.container {
     height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .loader {
@@ -22,7 +14,7 @@ body {
 }
 
 .movies {
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
