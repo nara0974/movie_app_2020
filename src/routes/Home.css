@@ -21,3 +21,9 @@
     flex-wrap: wrap;
     padding: 70px 50px 50px;
 }
+
+@media all and (max-width: 959px){
+    .movies {
+        width: 100%;
+    }
+}
